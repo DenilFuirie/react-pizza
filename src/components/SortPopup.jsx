@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 const SortPopup = ({ items }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
+    const sortRef = useRef();
+
+    console.log(sortRef.current)
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
@@ -13,17 +16,20 @@ const SortPopup = ({ items }) => {
     }
 
     const handleOutsideClick = (e) => {
-        setVisiblePopup(false)
-        console.log(e)
+        let path = e.path || (e.composedPath && e.composedPath());
+        if (!path.includes(sortRef.current)) {
+            setVisiblePopup(false);
+        }
     };
 
     useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick)
+        console.log(sortRef.current)
     }, [])
 
 
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
                     width="10"
