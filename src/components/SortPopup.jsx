@@ -4,6 +4,7 @@ const SortPopup = ({ items }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
     const sortRef = useRef();
+    const activeLabel = items[activeItem];
 
     console.log(sortRef.current)
 
@@ -11,8 +12,11 @@ const SortPopup = ({ items }) => {
         setVisiblePopup(!visiblePopup)
     }
 
-    const onSelectItem = (index) => {
-        setActiveItem(index)
+
+
+    const onSelectSortItem = (index, item) => {
+        setActiveItem(item);
+        setVisiblePopup(false);
     }
 
     const handleOutsideClick = (e) => {
@@ -43,14 +47,15 @@ const SortPopup = ({ items }) => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>популярности</span>
+                <span onClick={toggleVisiblePopup}>{activeLabel}</span>
             </div>
             {visiblePopup && <div className="sort__popup">
                 <ul>
                     { items.map((item, index) => {
                         return <li
                             className={activeItem === index ? 'active' : ''}
-                            onClick={() => onSelectItem(index)}
+                            onClick={() => onSelectSortItem(item, index)
+                            }
 
                         >
                             {item}
