@@ -28,7 +28,6 @@ const Home = ({ items }) => {
                 {items.map((obj) => {
                     return (
                         <PizzaBlock
-                            testo={['тонкое', 'толстое']}
                             key={obj.id} {...obj}/>
 
                     )
