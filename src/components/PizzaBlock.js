@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const PizzaBlock = ({ name, imageUrl, price, category, sizes, types }) => {
@@ -52,7 +53,7 @@ const PizzaBlock = ({ name, imageUrl, price, category, sizes, types }) => {
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">{price}</div>
+                <div className="pizza-block__price">{price} руб.</div>
                 <div className="button button--outline button--add">
                     <svg
                         width="12"
@@ -72,5 +73,14 @@ const PizzaBlock = ({ name, imageUrl, price, category, sizes, types }) => {
         </div>
     )
 }
+
+PizzaBlock.propTypes = {
+  name: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  types: PropTypes.arrayOf(PropTypes.number).isRequired,
+  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+
+};
 
 export default PizzaBlock;
