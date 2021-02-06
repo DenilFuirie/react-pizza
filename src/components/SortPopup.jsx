@@ -4,7 +4,7 @@ const SortPopup = ({ items }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
     const sortRef = useRef();
-    const activeLabel = items[activeItem];
+    const activeLabel = items[activeItem].name;
 
     console.log(sortRef.current)
 
@@ -28,7 +28,6 @@ const SortPopup = ({ items }) => {
 
     useEffect(() => {
         document.body.addEventListener('click', handleOutsideClick)
-        console.log(sortRef.current)
     }, [])
 
 
@@ -52,14 +51,14 @@ const SortPopup = ({ items }) => {
             </div>
             {visiblePopup && <div className="sort__popup">
                 <ul>
-                    { items.map((item, index) => {
+                    { items.map((obj, index) => {
                         return <li
                             className={activeItem === index ? 'active' : ''}
-                            onClick={() => onSelectSortItem(item, index)
-                            }
+                            onClick={() => onSelectSortItem(obj, index)}
+                            key={`${obj.type}_${index}`}
 
                         >
-                            {item}
+                            {obj.name}
                         </li>
                     })}
                 </ul>
