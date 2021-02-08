@@ -3,7 +3,7 @@ const initialState = {
     isLoaded: false
 };
 
-const pizzasReducer = (state = initialState, action) => {
+const pizzas = (state = initialState, action) => {
     if (action.type === 'SET_PIZZAS') {
         return {
             ...state,
@@ -13,4 +13,4 @@ const pizzasReducer = (state = initialState, action) => {
     return state;
 };
 
-export default pizzasReducer;
+export default pizzas;
