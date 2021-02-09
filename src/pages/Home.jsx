@@ -1,12 +1,18 @@
 import React from 'react';
 import {Categories, SortPopup, PizzaBlock} from "../components";
+import {useSelector} from "react-redux";
 
-const Home = ({ items }) => {
+const Home = ( ) => {
+    const { items } = useSelector(({pizzas, filters}) => {
+        return {
+            items: pizzas.items,
+        }
+    });
+
     return (
         <div className="container">
             <div className="content__top">
                 <Categories
-                    onClickItem={(name, index) => console.log(name, index)}
                     items={[
                         'Мясные',
                         'Вегетарианские',

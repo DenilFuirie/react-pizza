@@ -6,7 +6,6 @@ const SortPopup = ({ items }) => {
     const sortRef = useRef();
     const activeLabel = items[activeItem].name;
 
-    console.log(sortRef.current)
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
