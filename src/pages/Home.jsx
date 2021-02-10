@@ -7,12 +7,15 @@ const Home = ( ) => {
     const dispatch = useDispatch();
     const items = useSelector(({pizzas}) => pizzas.items);
 
+    const onSelectCategory = (index) => {
+        dispatch(setCategory(index))
+    }
 
     return (
         <div className="container">
             <div className="content__top">
                 <Categories
-                    onClickItem={(index) => dispatch(setCategory(index))}
+                    onClickItem={onSelectCategory}
                     items={[
                         'Мясные',
                         'Вегетарианские',
