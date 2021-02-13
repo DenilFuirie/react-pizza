@@ -3,6 +3,7 @@ import {Categories, SortPopup, PizzaBlock} from "../components";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategory} from '../redux/actions/filters'
 import {fetchPizzas} from "../redux/actions/pizzas";
+import LoadingBlock from "../components/PizzaBlock/LoadingBlock";
 
 const categoryNames = ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
 const sortItems = [{name: 'популярности', type: 'popular'}, {name : 'цене', type: 'price'}, {name: 'алфавиту', type: 'alphabet'},]
@@ -10,6 +11,9 @@ const sortItems = [{name: 'популярности', type: 'popular'}, {name : 
 const Home = ( ) => {
     const dispatch = useDispatch();
     const items = useSelector(({pizzas}) => pizzas.items);
+    const isLoaded = useSelector(({pizzas}) => pizzas.isLoaded);
+    const { category, sortBy } = useSelector(({filters}) => filters);
+    console.log(category, sortBy)
 
     React.useEffect(() => {
 
@@ -32,13 +36,11 @@ const Home = ( ) => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {items && items.map((obj) => {
-                    return (
-                        <PizzaBlock
-                            key={obj.id} {...obj}/>
+                {isLoaded
+                    ? items.map((obj) => <PizzaBlock isLoading={true} key={obj.id} {...obj}/>)
+                    : Array(12).fill(<LoadingBlock/>)
+                }
 
-                    )
-                })}
 
             </div>
         </div>
