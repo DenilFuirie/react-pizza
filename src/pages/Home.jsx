@@ -8,11 +8,11 @@ import LoadingBlock from "../components/PizzaBlock/LoadingBlock";
 const categoryNames = ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']
 const sortItems = [
     {name: 'популярности', type: 'rating', order: 'desc'},
-    {name : 'цене', type: 'price', order: 'desc'},
+    {name : 'цене ', type: 'price', order: 'desc'},
     {name: 'алфавиту', type: 'name', order: 'asc'}
     ]
 
-const Home = ( ) => {
+const Home = () => {
     const dispatch = useDispatch();
     const items = useSelector(({pizzas}) => pizzas.items);
     const isLoaded = useSelector(({pizzas}) => pizzas.isLoaded);
