@@ -4,26 +4,35 @@ import classNames from 'classnames';
 import LoadingBlock from "./LoadingBlock";
 import Button from "../Button";
 
-const PizzaBlock = ({ name, imageUrl, price, category, sizes, types, isLoaded }) => {
+const PizzaBlock = ({ id, name, imageUrl, price, sizes, types, isLoaded, onClickAddPizza }) => {
 
     const typeNames = ['тонкое', 'традиционное'];
     const availableSizes = [26, 30, 40];
-    const [active, setActive] = React.useState(types[0]);
-    const [activeSize, setActiveSize] = React.useState(sizes[0]);
+    const [activeType, setActiveType] = React.useState(types[0]);
+    const [activeSize, setActiveSize] = React.useState(0);
 
     if (isLoaded) {
         return <LoadingBlock />
     }
 
     const activeItem = (index) => {
-        setActive(index)
+        setActiveType(index)
     }
     const activeSizeItem = (index) => {
         setActiveSize(index)
     }
 
-
-
+    const onAddPizza = () => {
+        const obj = {
+            id,
+            name,
+            imageUrl,
+            price,
+            size: sizes[activeSize],
+            type: typeNames[activeType]
+        };
+        onClickAddPizza(obj);
+    };
 
     return (
         <div className="pizza-block">
@@ -40,7 +49,7 @@ const PizzaBlock = ({ name, imageUrl, price, category, sizes, types, isLoaded })
                             key={index}
                             onClick={() => activeItem(index)}
                             className={classNames({
-                                active : active === index,
+                                active : activeType === index,
                                 disabled : !types.includes(index),
                             })}>
                             {item}
@@ -63,7 +72,7 @@ const PizzaBlock = ({ name, imageUrl, price, category, sizes, types, isLoaded })
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">{price} руб.</div>
-                <Button className="button--add" outline >
+                <Button onClick={onAddPizza} className="button--add" outline >
                     <svg
                         width="12"
                         height="12"
@@ -90,6 +99,7 @@ PizzaBlock.propTypes = {
   types: PropTypes.arrayOf(PropTypes.number),
   sizes: PropTypes.arrayOf(PropTypes.number),
   isLoading: PropTypes.bool,
+  onAddPizza: PropTypes.func,
 
 };
 
