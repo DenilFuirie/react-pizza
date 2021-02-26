@@ -16,8 +16,10 @@ const sortItems = [
 const Home = () => {
     const dispatch = useDispatch();
     const items = useSelector(({pizzas}) => pizzas.items);
+    const cartItems = useSelector(({cart}) => cart.items);
     const isLoaded = useSelector(({pizzas}) => pizzas.isLoaded);
     const { category, sortBy } = useSelector(({filters}) => filters);
+
 
 
     React.useEffect(() => {
@@ -54,6 +56,7 @@ const Home = () => {
             <div className="content__items">
                 {isLoaded
                     ? items.map((obj) => <PizzaBlock
+                        addedCount={cartItems[obj.id] && cartItems[obj.id].items.length}
                         onClickAddPizza={handleAddPizzaToCart}
                         isLoading={true}
                         key={obj.id} {...obj}
